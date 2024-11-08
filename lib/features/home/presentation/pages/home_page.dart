@@ -50,6 +50,7 @@ class _HomePageViewState extends State<HomePageView> {
 
           if (state is HomePageErrorState) {
             return CustomErrorWidget(
+              details: state.exception.toString(),
               message: 'Something went wrong. Please try again.',
               onRetry: () {
                 context.read<HomePageCubit>().init();

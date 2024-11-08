@@ -28,8 +28,7 @@ class HomeDatasourceImpl implements HomeDatasource {
   @override
   Future<void> addCity() async {
     try {
-      final response = await client.post('${F.baseUrl}/city');
-      print(response);
+      await client.post('${F.baseUrl}/city');
     } catch (e) {
       throw Exception('Error adding city: $e');
     }

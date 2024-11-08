@@ -15,7 +15,7 @@ class HomeRepositoryImpl implements HomeRepository {
 
       return Right(result);
     } on Exception catch (error) {
-      return Left(Exception(error));
+      return Left(error);
     }
   }
 
