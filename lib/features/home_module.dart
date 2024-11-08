@@ -1,4 +1,4 @@
-import 'package:city/features/home/presentation/home_page.dart';
+import 'package:city/features/home/presentation/pages/home_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class HomeModule extends Module {

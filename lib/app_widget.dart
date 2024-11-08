@@ -10,6 +10,6 @@ class AppWidget extends StatelessWidget {
       title: 'My Smart App',
       theme: ThemeData(primarySwatch: Colors.blue),
       routerConfig: Modular.routerConfig,
-    ); //added by extension
+    );
   }
 }
