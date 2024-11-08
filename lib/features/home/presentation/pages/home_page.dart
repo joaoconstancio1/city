@@ -1,4 +1,5 @@
 import 'package:city/core/custom_error_widget.dart';
+import 'package:city/core/custom_loading_widget.dart';
 import 'package:city/features/home/presentation/components/weather_card.dart';
 import 'package:city/features/home/presentation/cubit/home_page_cubit.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class _HomePageViewState extends State<HomePageView> {
       body: BlocBuilder<HomePageCubit, HomePageState>(
         builder: (context, state) {
           if (state is HomePageLoadingState) {
-            return const Center(child: CircularProgressIndicator());
+            return CustomLoadingWidget();
           }
 
           if (state is HomePageErrorState) {

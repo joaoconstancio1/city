@@ -11,7 +11,8 @@ class WeatherCard extends StatelessWidget {
     return ListView.builder(
       itemCount: data.length,
       itemBuilder: (context, index) {
-        final city = data[index];
+        // Invertendo a ordem da lista
+        final city = data.reversed.toList()[index];
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: Card(
