@@ -13,10 +13,10 @@ class CustomErrorWidget extends StatefulWidget {
   });
 
   @override
-  _CustomErrorWidgetState createState() => _CustomErrorWidgetState();
+  State<CustomErrorWidget> createState() => _CustomErrorWidget();
 }
 
-class _CustomErrorWidgetState extends State<CustomErrorWidget> {
+class _CustomErrorWidget extends State<CustomErrorWidget> {
   bool _showDetails = false;
 
   @override
@@ -42,7 +42,29 @@ class _CustomErrorWidgetState extends State<CustomErrorWidget> {
           const SizedBox(height: 8),
           ElevatedButton(
             onPressed: widget.onRetry,
-            child: const Text('Try Again'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.redAccent,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              elevation: 5,
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                Icon(Icons.refresh, size: 20),
+                SizedBox(width: 8),
+                Text(
+                  'Try Again',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 8),
           TextButton(
