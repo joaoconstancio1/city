@@ -11,6 +11,10 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   flutter_modular: ^6.3.4
+  flutter_bloc: ^8.1.6
+  equatable: ^2.0.5
+  either_dart: ^1.0.0
+  dio: ^5.7.0
 
 dev_dependencies:
   flutter_test:

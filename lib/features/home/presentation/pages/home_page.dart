@@ -8,7 +8,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Home Page')),
       body: Center(
-        child: Text('This is initial page'),
+        child: Text(
+          'This is initial page',
+        ),
       ),
     );
   }
