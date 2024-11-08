@@ -1,4 +1,3 @@
-import 'package:city/features/home/data/models/city_model.dart';
 import 'package:city/features/home/domain/entities/city_entity.dart';
 import 'package:city/features/home/domain/repositories/home_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -13,7 +12,7 @@ class HomePageCubit extends Cubit<HomePageState> {
 
   final HomeRepository repository;
 
-  Future<void> get() async {
+  Future<void> init() async {
     emit(const HomePageLoadingState());
 
     try {

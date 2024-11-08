@@ -14,7 +14,7 @@ class HomeDatasourceImpl implements HomeDatasource {
   @override
   Future<List<CityEntity>> get() async {
     try {
-      final response = client.get('${F.baseUrl}/city');
+      final response = await client.get('${F.baseUrl}/city');
       final result = (response as List)
           .map((e) => CityModel.fromJson(e as Map<String, dynamic>))
           .toList();
