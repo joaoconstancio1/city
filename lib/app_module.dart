@@ -1,4 +1,4 @@
-import 'package:city/home_page.dart';
+import 'package:city/features/home_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppModule extends Module {
@@ -7,6 +7,6 @@ class AppModule extends Module {
 
   @override
   void routes(r) {
-    r.child('/', child: (context) => HomePage());
+    r.module('/', module: HomeModule());
   }
 }
