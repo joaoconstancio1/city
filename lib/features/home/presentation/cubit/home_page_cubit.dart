@@ -1,7 +1,6 @@
+import 'package:city/core/core_extensions.dart';
 import 'package:city/features/home/domain/entities/city_entity.dart';
 import 'package:city/features/home/domain/repositories/home_repository.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'home_page_states.dart';
 
@@ -19,6 +18,17 @@ class HomePageCubit extends Cubit<HomePageState> {
       final result = await repository.get();
       result.fold((l) => emit(HomePageErrorState(l)),
           (r) => emit(HomePageSuccessState(cities: r)));
+    } catch (error, stackTrace) {
+      onError(error, stackTrace);
+    }
+  }
+
+  Future<void> addCity() async {
+    emit(const HomePageLoadingState());
+
+    try {
+      await repository.addCity();
+      await init();
     } catch (error, stackTrace) {
       onError(error, stackTrace);
     }

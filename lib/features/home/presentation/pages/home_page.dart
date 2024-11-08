@@ -1,10 +1,9 @@
 import 'package:city/core/custom_error_widget.dart';
 import 'package:city/core/custom_loading_widget.dart';
+import 'package:city/core/core_extensions.dart';
 import 'package:city/features/home/presentation/components/weather_card.dart';
 import 'package:city/features/home/presentation/cubit/home_page_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -34,6 +33,14 @@ class _HomePageViewState extends State<HomePageView> {
       appBar: AppBar(
         title: Text('Weather Info'),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              context.read<HomePageCubit>().addCity();
+            },
+          ),
+        ],
       ),
       body: BlocBuilder<HomePageCubit, HomePageState>(
         builder: (context, state) {
@@ -45,7 +52,7 @@ class _HomePageViewState extends State<HomePageView> {
             return CustomErrorWidget(
               message: 'Something went wrong. Please try again.',
               onRetry: () {
-                Modular.get<HomePageCubit>().init();
+                context.read<HomePageCubit>().init();
               },
             );
           }

@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 mixin HomeDatasource {
   Future<List<CityEntity>> get();
+  Future<void> addCity();
 }
 
 class HomeDatasourceImpl implements HomeDatasource {
@@ -21,6 +22,16 @@ class HomeDatasourceImpl implements HomeDatasource {
       return result;
     } catch (e) {
       throw Exception('Request error: $e');
+    }
+  }
+
+  @override
+  Future<void> addCity() async {
+    try {
+      final response = await client.post('${F.baseUrl}/city');
+      print(response);
+    } catch (e) {
+      throw Exception('Error adding city: $e');
     }
   }
 }

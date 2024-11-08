@@ -3,4 +3,5 @@ import 'package:either_dart/either.dart';
 
 mixin HomeRepository {
   Future<Either<Exception, List<CityEntity>>> get();
+  Future<void> addCity();
 }
