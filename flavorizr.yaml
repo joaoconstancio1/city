@@ -1,0 +1,25 @@
+flavors:
+  dev:
+    app:
+      name: "City dev"
+
+    android:
+      applicationId: "com.city.dev"
+    ios:
+      bundleId: "com.city.dev"
+  stg:
+    app:
+      name: "City stg"
+
+    android:
+      applicationId: "com.city.stg"
+    ios:
+      bundleId: "com.city.stg"
+  prod:
+    app:
+      name: "City"
+
+    android:
+      applicationId: "com.city"
+    ios:
+      bundleId: "com.city"
