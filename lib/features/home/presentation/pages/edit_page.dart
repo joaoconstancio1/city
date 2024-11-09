@@ -38,42 +38,94 @@ class _EditPageState extends State<EditPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Edit Page'),
+        title: const Text(
+          'Edit Page',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        backgroundColor: Colors.blueAccent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _buildTextField(
               controller: _cityController,
-              decoration: const InputDecoration(
-                labelText: 'City Name',
-                border: OutlineInputBorder(),
-              ),
+              label: 'City Name',
+              icon: Icons.location_city,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
+            const SizedBox(height: 16),
+            _buildTextField(
               controller: _temperatureController,
-              decoration: const InputDecoration(
-                labelText: 'Temperature',
-                border: OutlineInputBorder(),
-              ),
+              label: 'Temperature',
+              icon: Icons.thermostat,
+              keyboardType: TextInputType.number,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              maxLines: 3,
+            const SizedBox(height: 16),
+            _buildTextField(
               controller: _descriptionController,
-              decoration: const InputDecoration(
-                labelText: 'Description',
-                border: OutlineInputBorder(),
+              label: 'Description',
+              icon: Icons.description,
+              maxLines: 3,
+            ),
+            const Spacer(),
+            ElevatedButton.icon(
+              onPressed: () {
+                // Save action here
+              },
+              icon: const Icon(Icons.save, size: 24),
+              label: const Text(
+                'Save Changes',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 18, horizontal: 24),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                backgroundColor: Colors.blueAccent,
+                foregroundColor: Colors.white,
+                elevation: 6,
+                textStyle: const TextStyle(fontSize: 18),
+                shadowColor: Colors.blueAccent.withOpacity(0.3),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    required IconData icon,
+    TextInputType keyboardType = TextInputType.text,
+    int maxLines = 1,
+  }) {
+    return TextField(
+      controller: controller,
+      keyboardType: keyboardType,
+      maxLines: maxLines,
+      decoration: InputDecoration(
+        labelText: label,
+        prefixIcon: Icon(icon),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: const BorderSide(color: Colors.blueAccent),
+        ),
       ),
     );
   }
