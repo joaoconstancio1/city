@@ -68,27 +68,29 @@ class _HomePageViewState extends State<HomePageView> {
 
           if (state is HomePageSuccessState) {
             return ListView.builder(
-                itemCount: state.cities.length,
-                itemBuilder: (context, index) {
-                  final city = state.cities[index];
-                  return WeatherCard(
-                    city: city,
-                    onDelete: () =>
-                        showDeleteConfirmationDialog(context, city.id ?? ''),
-                    onEdit: () {
-                      Modular.to
-                          .pushNamed(
-                        '/edit',
-                        arguments: city,
-                      )
-                          .then((_) {
-                        if (context.mounted) {
-                          context.read<HomePageCubit>().init();
-                        }
-                      });
-                    },
-                  );
-                });
+              itemCount: state.cities.length,
+              itemBuilder: (context, index) {
+                final reversedCities = state.cities.reversed.toList();
+                final city = reversedCities[index];
+                return WeatherCard(
+                  city: city,
+                  onDelete: () =>
+                      showDeleteConfirmationDialog(context, city.id ?? ''),
+                  onEdit: () {
+                    Modular.to
+                        .pushNamed(
+                      '/edit',
+                      arguments: city,
+                    )
+                        .then((_) {
+                      if (context.mounted) {
+                        context.read<HomePageCubit>().init();
+                      }
+                    });
+                  },
+                );
+              },
+            );
           }
 
           return SizedBox();
