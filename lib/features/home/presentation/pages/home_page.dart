@@ -73,12 +73,20 @@ class _HomePageViewState extends State<HomePageView> {
                   final city = state.cities[index];
                   return WeatherCard(
                     city: city,
-                    onEdit: () => Navigator.of(context).pushNamed(
-                      '/edit',
-                      arguments: city,
-                    ),
                     onDelete: () =>
                         showDeleteConfirmationDialog(context, city.id ?? ''),
+                    onEdit: () {
+                      Modular.to
+                          .pushNamed(
+                        '/edit',
+                        arguments: city,
+                      )
+                          .then((_) {
+                        if (context.mounted) {
+                          context.read<HomePageCubit>().init();
+                        }
+                      });
+                    },
                   );
                 });
           }

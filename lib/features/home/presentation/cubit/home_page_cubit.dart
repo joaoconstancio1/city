@@ -44,4 +44,21 @@ class HomePageCubit extends Cubit<HomePageState> {
       onError(error, stackTrace);
     }
   }
+
+  Future<void> updateCity({
+    String? id,
+    String? cityName,
+    String? temperature,
+    String? description,
+  }) async {
+    try {
+      await repository.updateCity(
+          id: id,
+          cityName: cityName,
+          temperature: temperature,
+          description: description);
+    } catch (error, stackTrace) {
+      onError(error, stackTrace);
+    }
+  }
 }

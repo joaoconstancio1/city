@@ -8,6 +8,12 @@ mixin HomeDatasource {
   Future<List<CityEntity>> get();
   Future<void> addCity();
   Future<void> deleteCity(String id);
+  Future<void> updateCity({
+    String? id,
+    String? cityName,
+    String? temperature,
+    String? description,
+  });
 }
 
 class HomeDatasourceImpl implements HomeDatasource {
@@ -41,6 +47,24 @@ class HomeDatasourceImpl implements HomeDatasource {
       await client.delete('${F.baseUrl}/city/$id');
     } catch (e) {
       throw Exception('Error deleting city: $e');
+    }
+  }
+
+  @override
+  Future<void> updateCity({
+    String? id,
+    String? cityName,
+    String? temperature,
+    String? description,
+  }) async {
+    try {
+      await client.put('${F.baseUrl}/city/$id', data: {
+        'city': cityName,
+        'temperature': temperature,
+        'description': description,
+      });
+    } catch (e) {
+      throw Exception('Error updating city: $e');
     }
   }
 }

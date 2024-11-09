@@ -1,4 +1,6 @@
+import 'package:city/core/core_extensions.dart';
 import 'package:city/features/home/domain/entities/city_entity.dart';
+import 'package:city/features/home/presentation/cubit/home_page_cubit.dart';
 import 'package:flutter/material.dart';
 
 class EditPage extends StatefulWidget {
@@ -35,6 +37,8 @@ class _EditPageState extends State<EditPage> {
 
   @override
   Widget build(BuildContext context) {
+    final homePageCubit = Modular.get<HomePageCubit>();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -76,8 +80,14 @@ class _EditPageState extends State<EditPage> {
             ),
             const Spacer(),
             ElevatedButton.icon(
-              onPressed: () {
-                // Save action here
+              onPressed: () async {
+                await homePageCubit.updateCity(
+                  id: widget.city.id,
+                  cityName: _cityController.text,
+                  temperature: _temperatureController.text,
+                  description: _descriptionController.text,
+                );
+                Modular.to.pop(true);
               },
               icon: const Icon(Icons.save, size: 24),
               label: const Text(

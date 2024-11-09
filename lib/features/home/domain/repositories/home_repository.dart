@@ -5,4 +5,10 @@ mixin HomeRepository {
   Future<Either<Exception, List<CityEntity>>> get();
   Future<void> addCity();
   Future<void> deleteCity(String id);
+  Future<void> updateCity({
+    String? id,
+    String? cityName,
+    String? temperature,
+    String? description,
+  });
 }

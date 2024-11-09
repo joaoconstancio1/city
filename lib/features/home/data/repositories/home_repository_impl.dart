@@ -36,4 +36,23 @@ class HomeRepositoryImpl implements HomeRepository {
       throw Exception('Failed to delete city: $e');
     }
   }
+
+  @override
+  Future<void> updateCity({
+    String? id,
+    String? cityName,
+    String? temperature,
+    String? description,
+  }) async {
+    try {
+      await datasource.updateCity(
+        id: id,
+        cityName: cityName,
+        temperature: temperature,
+        description: description,
+      );
+    } catch (e) {
+      throw Exception('Failed to update city: $e');
+    }
+  }
 }
