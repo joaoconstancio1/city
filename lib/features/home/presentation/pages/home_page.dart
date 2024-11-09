@@ -66,6 +66,10 @@ class _HomePageViewState extends State<HomePageView> {
                   final city = state.cities[index];
                   return WeatherCard(
                     city: city,
+                    onEdit: () => Navigator.of(context).pushNamed(
+                      '/edit',
+                      arguments: city,
+                    ),
                     onDelete: () =>
                         showDeleteConfirmationDialog(context, city.id ?? ''),
                   );
