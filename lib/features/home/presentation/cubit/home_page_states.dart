@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:city/core/core_extensions.dart';
 import 'package:city/features/home/domain/entities/city_entity.dart';
 
