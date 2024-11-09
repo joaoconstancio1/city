@@ -82,13 +82,16 @@ class HomeDatasourceImpl implements HomeDatasource {
     String? description,
   }) async {
     try {
-      await client.post('${F.baseUrl}/city/', data: {
-        'city': cityName,
-        'temperature': temperature,
-        'description': description,
-      });
+      final Map<String, String> data = {};
+
+      if (cityName != null) data['city'] = cityName;
+      if (temperature != null) data['temperature'] = temperature;
+      if (description != null) data['description'] = description;
+
+      await client.post('${F.baseUrl}/city/',
+          data: data.isNotEmpty ? data : null);
     } catch (e) {
-      throw Exception('Error updating city: $e');
+      throw Exception('Error creating city: $e');
     }
   }
 }

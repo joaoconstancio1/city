@@ -84,45 +84,76 @@ class _EditOrCreatePageState extends State<EditOrCreatePage> {
                 maxLines: 3,
               ),
               const Spacer(),
-              ElevatedButton.icon(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    if (isEditing) {
-                      await homePageCubit.updateCity(
-                        id: widget.city?.id,
-                        cityName: _cityController.text,
-                        temperature: _temperatureController.text,
-                        description: _descriptionController.text,
-                      );
-                    } else {
-                      await homePageCubit.createCity(
-                        cityName: _cityController.text,
-                        temperature: _temperatureController.text,
-                        description: _descriptionController.text,
-                      );
-                    }
-                    Modular.to.pop(true);
-                  }
-                },
-                icon: Icon(isEditing ? Icons.save : Icons.add, size: 20),
-                label: Text(
-                  isEditing ? 'Save Changes' : 'Create City',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          if (isEditing) {
+                            await homePageCubit.updateCity(
+                              id: widget.city?.id,
+                              cityName: _cityController.text,
+                              temperature: _temperatureController.text,
+                              description: _descriptionController.text,
+                            );
+                          } else {
+                            await homePageCubit.createCity(
+                              cityName: _cityController.text,
+                              temperature: _temperatureController.text,
+                              description: _descriptionController.text,
+                            );
+                          }
+                          Modular.to.pop(true);
+                        }
+                      },
+                      icon: Icon(isEditing ? Icons.save : Icons.add, size: 20),
+                      label: Text(
+                        isEditing ? 'Save Changes' : 'Create City',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        backgroundColor: Colors.blueAccent,
+                        foregroundColor: Colors.white,
+                        elevation: 6,
+                        textStyle: const TextStyle(fontSize: 18),
+                        shadowColor: Colors.blueAccent.withOpacity(0.3),
+                      ),
+                    ),
                   ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 18, horizontal: 24),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: ElevatedButton.icon(
+                      onPressed: () async {
+                        await homePageCubit.createCity();
+                        Modular.to.pop(true);
+                      },
+                      icon: const Icon(Icons.shuffle, size: 20),
+                      label: const Text(
+                        'Random City',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        elevation: 6,
+                        textStyle: const TextStyle(fontSize: 18),
+                        shadowColor: Colors.green.withOpacity(0.3),
+                      ),
+                    ),
                   ),
-                  backgroundColor: Colors.blueAccent,
-                  foregroundColor: Colors.white,
-                  elevation: 6,
-                  textStyle: const TextStyle(fontSize: 18),
-                  shadowColor: Colors.blueAccent.withOpacity(0.3),
-                ),
+                ],
               ),
             ],
           ),
