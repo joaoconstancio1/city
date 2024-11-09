@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:city/core/dio_http_client.dart';
 import 'package:city/core/custom_http_client.dart';
 import 'package:city/features/home/home_module.dart';

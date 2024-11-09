@@ -1,3 +1,5 @@
+// coverage:ignore-file
+
 import 'dart:async';
 import 'package:city/app_module.dart';
 import 'package:city/app_widget.dart';

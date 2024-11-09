@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'flavors.dart';
 
 import 'main.dart' as runner;

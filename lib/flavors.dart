@@ -1,3 +1,4 @@
+// coverage:ignore-file
 enum Flavor {
   dev,
   stg,
