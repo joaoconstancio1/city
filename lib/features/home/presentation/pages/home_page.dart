@@ -1,6 +1,7 @@
 import 'package:city/core/custom_error_widget.dart';
 import 'package:city/core/custom_loading_widget.dart';
 import 'package:city/core/core_extensions.dart';
+import 'package:city/features/home/presentation/components/show_delete_confirmation_dialog.dart';
 import 'package:city/features/home/presentation/components/weather_card.dart';
 import 'package:city/features/home/presentation/cubit/home_page_cubit.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,9 @@ class _HomePageViewState extends State<HomePageView> {
           if (state is HomePageSuccessState) {
             return WeatherCard(
               data: state.cities,
-              onDelete: (id) => context.read<HomePageCubit>().deleteCity(id),
+              onDelete: (id) {
+                showDeleteConfirmationDialog(context, id);
+              },
             );
           }
 
