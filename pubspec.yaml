@@ -16,6 +16,9 @@ dependencies:
   either_dart: ^1.0.0
   dio: ^5.7.0
   flutter_spinkit: ^5.2.1
+  coverage: ^1.10.0
+  mocktail: ^1.0.4
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
