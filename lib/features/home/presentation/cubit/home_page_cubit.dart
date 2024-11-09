@@ -1,8 +1,6 @@
 import 'package:city/core/core_extensions.dart';
-import 'package:city/features/home/domain/entities/city_entity.dart';
 import 'package:city/features/home/domain/repositories/home_repository.dart';
-
-part 'home_page_states.dart';
+import 'package:city/features/home/presentation/cubit/home_page_states.dart';
 
 class HomePageCubit extends Cubit<HomePageState> {
   HomePageCubit(

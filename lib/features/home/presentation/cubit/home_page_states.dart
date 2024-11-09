@@ -1,4 +1,5 @@
-part of 'home_page_cubit.dart';
+import 'package:city/core/core_extensions.dart';
+import 'package:city/features/home/domain/entities/city_entity.dart';
 
 sealed class HomePageState extends Equatable {
   const HomePageState();
