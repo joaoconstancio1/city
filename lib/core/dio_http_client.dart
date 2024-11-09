@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'http_client.dart';
+import 'custom_http_client.dart';
 
-class DioHttpClient implements HttpClient {
+class DioHttpClient implements CustomHttpClient {
   final Dio _dio;
 
   DioHttpClient(this._dio);

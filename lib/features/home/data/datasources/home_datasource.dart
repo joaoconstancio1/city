@@ -1,8 +1,7 @@
-import 'package:city/core/http_client.dart';
+import 'package:city/core/custom_http_client.dart';
 import 'package:city/features/home/data/models/city_model.dart';
 import 'package:city/features/home/domain/entities/city_entity.dart';
 import 'package:city/flavors.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 
 mixin HomeDatasource {
   Future<List<CityEntity>> get();
@@ -23,7 +22,9 @@ mixin HomeDatasource {
 }
 
 class HomeDatasourceImpl implements HomeDatasource {
-  final client = Modular.get<HttpClient>();
+  final CustomHttpClient client;
+
+  HomeDatasourceImpl({required this.client});
 
   @override
   Future<List<CityEntity>> get() async {
