@@ -128,31 +128,32 @@ class _EditOrCreatePageState extends State<EditOrCreatePage> {
                       ),
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: ElevatedButton.icon(
-                      onPressed: () async {
-                        await homePageCubit.createCity();
-                        Modular.to.pop(true);
-                      },
-                      icon: const Icon(Icons.shuffle, size: 20),
-                      label: const Text(
-                        'Random City',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                  if (!isEditing) const SizedBox(width: 16),
+                  if (!isEditing)
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () async {
+                          await homePageCubit.createCity();
+                          Modular.to.pop(true);
+                        },
+                        icon: const Icon(Icons.shuffle, size: 20),
+                        label: const Text(
+                          'Random City',
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        backgroundColor: Colors.green,
-                        foregroundColor: Colors.white,
-                        elevation: 6,
-                        textStyle: const TextStyle(fontSize: 18),
-                        shadowColor: Colors.green.withOpacity(0.3),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          backgroundColor: Colors.green,
+                          foregroundColor: Colors.white,
+                          elevation: 6,
+                          textStyle: const TextStyle(fontSize: 18),
+                          shadowColor: Colors.green.withOpacity(0.3),
+                        ),
                       ),
                     ),
-                  ),
                 ],
               ),
             ],
