@@ -60,12 +60,16 @@ class _HomePageViewState extends State<HomePageView> {
           }
 
           if (state is HomePageSuccessState) {
-            return WeatherCard(
-              data: state.cities,
-              onDelete: (id) {
-                showDeleteConfirmationDialog(context, id);
-              },
-            );
+            return ListView.builder(
+                itemCount: state.cities.length,
+                itemBuilder: (context, index) {
+                  final city = state.cities[index];
+                  return WeatherCard(
+                    city: city,
+                    onDelete: () =>
+                        showDeleteConfirmationDialog(context, city.id ?? ''),
+                  );
+                });
           }
 
           return SizedBox();
