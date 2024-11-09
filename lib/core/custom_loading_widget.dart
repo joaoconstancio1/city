@@ -7,9 +7,10 @@ class CustomLoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
+        key: const Key('custom_loading_center'),
         child: SpinKitCircle(
-      color: Colors.blue,
-      size: 50.0,
-    ));
+          color: Colors.blue,
+          size: 50.0,
+        ));
   }
 }
