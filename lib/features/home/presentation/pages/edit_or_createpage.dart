@@ -16,6 +16,7 @@ class _EditOrCreatePageState extends State<EditOrCreatePage> {
   late TextEditingController _cityController;
   late TextEditingController _temperatureController;
   late TextEditingController _descriptionController;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -58,68 +59,73 @@ class _EditOrCreatePageState extends State<EditOrCreatePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildTextField(
-              controller: _cityController,
-              label: 'Nome da Cidade',
-              icon: Icons.location_city,
-            ),
-            const SizedBox(height: 16),
-            _buildTextField(
-              controller: _temperatureController,
-              label: 'Temperatura',
-              icon: Icons.thermostat,
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 16),
-            _buildTextField(
-              controller: _descriptionController,
-              label: 'Descrição',
-              icon: Icons.description,
-              maxLines: 3,
-            ),
-            const Spacer(),
-            ElevatedButton.icon(
-              onPressed: () async {
-                if (isEditing) {
-                  await homePageCubit.updateCity(
-                    id: widget.city?.id,
-                    cityName: _cityController.text,
-                    temperature: _temperatureController.text,
-                    description: _descriptionController.text,
-                  );
-                } else {
-                  await homePageCubit.createCity(
-                    cityName: _cityController.text,
-                    temperature: _temperatureController.text,
-                    description: _descriptionController.text,
-                  );
-                }
-                Modular.to.pop(true);
-              },
-              icon: Icon(isEditing ? Icons.save : Icons.add, size: 20),
-              label: Text(
-                isEditing ? 'Save Changes' : 'Create City',
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildTextField(
+                controller: _cityController,
+                label: 'City Name',
+                icon: Icons.location_city,
+              ),
+              const SizedBox(height: 16),
+              _buildTextField(
+                controller: _temperatureController,
+                label: 'Temperature',
+                icon: Icons.thermostat,
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 16),
+              _buildTextField(
+                controller: _descriptionController,
+                label: 'Description',
+                icon: Icons.description,
+                maxLines: 3,
+              ),
+              const Spacer(),
+              ElevatedButton.icon(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    if (isEditing) {
+                      await homePageCubit.updateCity(
+                        id: widget.city?.id,
+                        cityName: _cityController.text,
+                        temperature: _temperatureController.text,
+                        description: _descriptionController.text,
+                      );
+                    } else {
+                      await homePageCubit.createCity(
+                        cityName: _cityController.text,
+                        temperature: _temperatureController.text,
+                        description: _descriptionController.text,
+                      );
+                    }
+                    Modular.to.pop(true);
+                  }
+                },
+                icon: Icon(isEditing ? Icons.save : Icons.add, size: 20),
+                label: Text(
+                  isEditing ? 'Save Changes' : 'Create City',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 18, horizontal: 24),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  backgroundColor: Colors.blueAccent,
+                  foregroundColor: Colors.white,
+                  elevation: 6,
+                  textStyle: const TextStyle(fontSize: 18),
+                  shadowColor: Colors.blueAccent.withOpacity(0.3),
                 ),
               ),
-              style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 18, horizontal: 24),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                backgroundColor: Colors.blueAccent,
-                foregroundColor: Colors.white,
-                elevation: 6,
-                textStyle: const TextStyle(fontSize: 18),
-                shadowColor: Colors.blueAccent.withOpacity(0.3),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -132,7 +138,7 @@ class _EditOrCreatePageState extends State<EditOrCreatePage> {
     TextInputType keyboardType = TextInputType.text,
     int maxLines = 1,
   }) {
-    return TextField(
+    return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
       maxLines: maxLines,
@@ -147,6 +153,12 @@ class _EditOrCreatePageState extends State<EditOrCreatePage> {
           borderSide: const BorderSide(color: Colors.blueAccent),
         ),
       ),
+      validator: (value) {
+        if (value == null || value.trim().isEmpty) {
+          return 'This field cannot be empty';
+        }
+        return null;
+      },
     );
   }
 }

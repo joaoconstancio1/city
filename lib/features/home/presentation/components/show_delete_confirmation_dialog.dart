@@ -23,7 +23,7 @@ void showDeleteConfirmationDialog(BuildContext context, String id) {
           ],
         ),
         content: Text(
-          'Are you sure you want to delete this city? This action can not be undone.',
+          'Are you sure you want to delete this city? This action cannot be undone.',
           style: TextStyle(fontSize: 16),
         ),
         actions: [
