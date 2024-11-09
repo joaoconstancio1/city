@@ -59,7 +59,10 @@ class _HomePageViewState extends State<HomePageView> {
           }
 
           if (state is HomePageSuccessState) {
-            return WeatherCard(data: state.cities);
+            return WeatherCard(
+              data: state.cities,
+              onDelete: (id) => context.read<HomePageCubit>().deleteCity(id),
+            );
           }
 
           return SizedBox();

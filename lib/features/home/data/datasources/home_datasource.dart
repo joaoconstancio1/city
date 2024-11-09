@@ -7,6 +7,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 mixin HomeDatasource {
   Future<List<CityEntity>> get();
   Future<void> addCity();
+  Future<void> deleteCity(String id);
 }
 
 class HomeDatasourceImpl implements HomeDatasource {
@@ -31,6 +32,15 @@ class HomeDatasourceImpl implements HomeDatasource {
       await client.post('${F.baseUrl}/city');
     } catch (e) {
       throw Exception('Error adding city: $e');
+    }
+  }
+
+  @override
+  Future<void> deleteCity(String id) async {
+    try {
+      await client.delete('${F.baseUrl}/city/$id');
+    } catch (e) {
+      throw Exception('Error deleting city: $e');
     }
   }
 }

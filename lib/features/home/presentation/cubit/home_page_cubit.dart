@@ -33,4 +33,15 @@ class HomePageCubit extends Cubit<HomePageState> {
       onError(error, stackTrace);
     }
   }
+
+  Future<void> deleteCity(String id) async {
+    emit(const HomePageLoadingState());
+
+    try {
+      await repository.deleteCity(id);
+      await init();
+    } catch (error, stackTrace) {
+      onError(error, stackTrace);
+    }
+  }
 }

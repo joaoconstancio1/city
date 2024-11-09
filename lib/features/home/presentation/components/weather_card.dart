@@ -2,9 +2,16 @@ import 'package:city/features/home/domain/entities/city_entity.dart';
 import 'package:flutter/material.dart';
 
 class WeatherCard extends StatelessWidget {
-  const WeatherCard({super.key, required this.data});
-
   final List<CityEntity> data;
+  final VoidCallback? onEdit;
+  final void Function(String id)? onDelete;
+
+  const WeatherCard({
+    super.key,
+    required this.data,
+    this.onEdit,
+    this.onDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,28 +45,45 @@ class WeatherCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      Flexible(
+                        child: Text(
+                          city.city ?? 'Unknown City',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          IconButton(
+                              icon: Icon(Icons.edit, color: Colors.white),
+                              onPressed: onEdit),
+                          IconButton(
+                              icon: Icon(Icons.delete, color: Colors.white),
+                              onPressed: () => onDelete?.call(city.id ?? '')),
+                        ],
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
                       Text(
-                        city.city ?? 'Unknown City',
+                        '${city.temperature}°C',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 32,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
+                      SizedBox(width: 14),
                       Icon(
                         Icons.cloud,
                         color: Colors.white,
                       ),
                     ],
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '${city.temperature}°C',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(

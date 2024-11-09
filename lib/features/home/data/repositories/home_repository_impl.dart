@@ -22,9 +22,18 @@ class HomeRepositoryImpl implements HomeRepository {
   @override
   Future<void> addCity() async {
     try {
-      await datasource.addCity(); // Agora usando await corretamente
+      await datasource.addCity();
     } catch (e) {
       throw Exception('Failed to add city: $e');
+    }
+  }
+
+  @override
+  Future<void> deleteCity(String id) async {
+    try {
+      await datasource.deleteCity(id);
+    } catch (e) {
+      throw Exception('Failed to delete city: $e');
     }
   }
 }
