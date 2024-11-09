@@ -11,4 +11,10 @@ mixin HomeRepository {
     String? temperature,
     String? description,
   });
+  Future<void> createCity({
+    String? id,
+    String? cityName,
+    String? temperature,
+    String? description,
+  });
 }

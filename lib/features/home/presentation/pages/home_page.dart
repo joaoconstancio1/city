@@ -45,7 +45,11 @@ class _HomePageViewState extends State<HomePageView> {
               color: Colors.white,
             ),
             onPressed: () {
-              context.read<HomePageCubit>().addCity();
+              Modular.to.pushNamed('/edit').then((_) {
+                if (context.mounted) {
+                  context.read<HomePageCubit>().init();
+                }
+              });
             },
           ),
         ],

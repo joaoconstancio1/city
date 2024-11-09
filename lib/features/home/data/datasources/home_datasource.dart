@@ -14,6 +14,12 @@ mixin HomeDatasource {
     String? temperature,
     String? description,
   });
+  Future<void> createCity({
+    String? id,
+    String? cityName,
+    String? temperature,
+    String? description,
+  });
 }
 
 class HomeDatasourceImpl implements HomeDatasource {
@@ -59,6 +65,24 @@ class HomeDatasourceImpl implements HomeDatasource {
   }) async {
     try {
       await client.put('${F.baseUrl}/city/$id', data: {
+        'city': cityName,
+        'temperature': temperature,
+        'description': description,
+      });
+    } catch (e) {
+      throw Exception('Error updating city: $e');
+    }
+  }
+
+  @override
+  Future<void> createCity({
+    String? id,
+    String? cityName,
+    String? temperature,
+    String? description,
+  }) async {
+    try {
+      await client.post('${F.baseUrl}/city/', data: {
         'city': cityName,
         'temperature': temperature,
         'description': description,

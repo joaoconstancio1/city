@@ -3,16 +3,16 @@ import 'package:city/features/home/domain/entities/city_entity.dart';
 import 'package:city/features/home/presentation/cubit/home_page_cubit.dart';
 import 'package:flutter/material.dart';
 
-class EditPage extends StatefulWidget {
-  const EditPage({super.key, required this.city});
+class EditOrCreatePage extends StatefulWidget {
+  const EditOrCreatePage({super.key, this.city});
 
-  final CityEntity city;
+  final CityEntity? city;
 
   @override
-  State<EditPage> createState() => _EditPageState();
+  State<EditOrCreatePage> createState() => _EditOrCreatePageState();
 }
 
-class _EditPageState extends State<EditPage> {
+class _EditOrCreatePageState extends State<EditOrCreatePage> {
   late TextEditingController _cityController;
   late TextEditingController _temperatureController;
   late TextEditingController _descriptionController;
@@ -20,11 +20,11 @@ class _EditPageState extends State<EditPage> {
   @override
   void initState() {
     super.initState();
-    _cityController = TextEditingController(text: widget.city.city);
+    _cityController = TextEditingController(text: widget.city?.city);
     _temperatureController =
-        TextEditingController(text: widget.city.temperature);
+        TextEditingController(text: widget.city?.temperature);
     _descriptionController =
-        TextEditingController(text: widget.city.description);
+        TextEditingController(text: widget.city?.description);
   }
 
   @override
@@ -38,13 +38,15 @@ class _EditPageState extends State<EditPage> {
   @override
   Widget build(BuildContext context) {
     final homePageCubit = Modular.get<HomePageCubit>();
+    final isEditing = widget.city != null;
 
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          'Edit Page',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        title: Text(
+          isEditing ? 'Edit' : 'Create',
+          style:
+              const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         backgroundColor: Colors.blueAccent,
         leading: IconButton(
@@ -61,38 +63,46 @@ class _EditPageState extends State<EditPage> {
           children: [
             _buildTextField(
               controller: _cityController,
-              label: 'City Name',
+              label: 'Nome da Cidade',
               icon: Icons.location_city,
             ),
             const SizedBox(height: 16),
             _buildTextField(
               controller: _temperatureController,
-              label: 'Temperature',
+              label: 'Temperatura',
               icon: Icons.thermostat,
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 16),
             _buildTextField(
               controller: _descriptionController,
-              label: 'Description',
+              label: 'Descrição',
               icon: Icons.description,
               maxLines: 3,
             ),
             const Spacer(),
             ElevatedButton.icon(
               onPressed: () async {
-                await homePageCubit.updateCity(
-                  id: widget.city.id,
-                  cityName: _cityController.text,
-                  temperature: _temperatureController.text,
-                  description: _descriptionController.text,
-                );
+                if (isEditing) {
+                  await homePageCubit.updateCity(
+                    id: widget.city?.id,
+                    cityName: _cityController.text,
+                    temperature: _temperatureController.text,
+                    description: _descriptionController.text,
+                  );
+                } else {
+                  await homePageCubit.createCity(
+                    cityName: _cityController.text,
+                    temperature: _temperatureController.text,
+                    description: _descriptionController.text,
+                  );
+                }
                 Modular.to.pop(true);
               },
-              icon: const Icon(Icons.save, size: 24),
-              label: const Text(
-                'Save Changes',
-                style: TextStyle(
+              icon: Icon(isEditing ? Icons.save : Icons.add, size: 20),
+              label: Text(
+                isEditing ? 'Save Changes' : 'Create City',
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
               ),
