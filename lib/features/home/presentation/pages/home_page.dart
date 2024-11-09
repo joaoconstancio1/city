@@ -79,8 +79,13 @@ class _HomePageViewState extends State<HomePageView> {
                 final city = reversedCities[index];
                 return WeatherCard(
                   city: city,
-                  onDelete: () =>
-                      showDeleteConfirmationDialog(context, city.id ?? ''),
+                  onDelete: () => showDeleteConfirmationDialog(
+                    context,
+                    () {
+                      context.read<HomePageCubit>().deleteCity(city.id ?? '');
+                      Navigator.of(context).pop();
+                    },
+                  ),
                   onEdit: () {
                     Modular.to
                         .pushNamed(

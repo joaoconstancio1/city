@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:city/app_module.dart';
 import 'package:city/features/home/data/datasources/home_datasource.dart';
 import 'package:city/features/home/data/repositories/home_repository_impl.dart';

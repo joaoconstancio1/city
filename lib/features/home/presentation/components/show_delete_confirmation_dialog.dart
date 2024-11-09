@@ -1,10 +1,7 @@
-import 'package:city/core/core_extensions.dart';
-import 'package:city/features/home/presentation/cubit/home_page_cubit.dart';
 import 'package:flutter/material.dart';
 
-void showDeleteConfirmationDialog(BuildContext context, String id) {
-  final homePageCubit = context.read<HomePageCubit>();
-
+void showDeleteConfirmationDialog(
+    BuildContext context, VoidCallback onDeleteCity) {
   showDialog(
     context: context,
     builder: (BuildContext dialogContext) {
@@ -36,10 +33,7 @@ void showDeleteConfirmationDialog(BuildContext context, String id) {
             child: Text('Cancel'),
           ),
           ElevatedButton(
-            onPressed: () {
-              homePageCubit.deleteCity(id);
-              Navigator.of(dialogContext).pop();
-            },
+            onPressed: onDeleteCity,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red,
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
