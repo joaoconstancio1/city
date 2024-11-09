@@ -82,10 +82,20 @@ class _CustomErrorWidget extends State<CustomErrorWidget> {
             firstChild: const SizedBox.shrink(),
             secondChild: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                widget.details,
-                style: TextStyle(color: Colors.grey[600]),
-                textAlign: TextAlign.center,
+              child: AnimatedSize(
+                duration: const Duration(milliseconds: 300),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: 200,
+                  ),
+                  child: SingleChildScrollView(
+                    child: Text(
+                      widget.details,
+                      style: TextStyle(color: Colors.grey[600]),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
               ),
             ),
             crossFadeState: _showDetails
