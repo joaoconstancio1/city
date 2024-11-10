@@ -176,4 +176,13 @@ void main() {
     expect(find.text('20'), findsOneWidget);
     expect(find.text('Warm'), findsOneWidget);
   });
+
+  testWidgets('navigates back when back button is pressed', (tester) async {
+    await tester.pumpWidget(createWidgetUnderTest());
+
+    await tester.tap(find.byIcon(Icons.arrow_back_ios));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(EditOrCreatePage), findsNothing);
+  });
 }
