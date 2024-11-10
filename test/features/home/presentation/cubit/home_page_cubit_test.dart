@@ -142,5 +142,90 @@ void main() {
             )).called(1);
       },
     );
-  });
+  }); // Test for error in addCity function
+
+  blocTest<HomePageCubit, HomePageState>(
+    'emits [ HomePageErrorState] when init fails',
+    setUp: () {
+      when(() => mockHomeRepository.get()).thenThrow(Exception());
+    },
+    build: () => homePageCubit,
+    act: (cubit) => cubit.init(),
+    expect: () => [
+      const HomePageLoadingState(),
+      HomePageErrorState(Exception()),
+    ],
+  );
+  blocTest<HomePageCubit, HomePageState>(
+    'emits [HomePageLoadingState, HomePageErrorState] when addCity fails',
+    setUp: () {
+      when(() => mockHomeRepository.addCity()).thenThrow(Exception());
+    },
+    build: () => homePageCubit,
+    act: (cubit) => cubit.addCity(),
+    expect: () => [
+      const HomePageLoadingState(),
+      HomePageErrorState(Exception()),
+    ],
+  );
+
+// Test for error in deleteCity function
+  blocTest<HomePageCubit, HomePageState>(
+    'emits [HomePageLoadingState, HomePageErrorState] when deleteCity fails',
+    setUp: () {
+      when(() => mockHomeRepository.deleteCity(any())).thenThrow(Exception());
+    },
+    build: () => homePageCubit,
+    act: (cubit) => cubit.deleteCity('123'),
+    expect: () => [
+      const HomePageLoadingState(),
+      HomePageErrorState(Exception()),
+    ],
+  );
+
+// Test for error in updateCity function
+  blocTest<HomePageCubit, HomePageState>(
+    'emits [ HomePageErrorState] when updateCity fails',
+    setUp: () {
+      when(() => mockHomeRepository.updateCity(
+            id: any(named: 'id'),
+            cityName: any(named: 'cityName'),
+            temperature: any(named: 'temperature'),
+            description: any(named: 'description'),
+          )).thenThrow(Exception());
+    },
+    build: () => homePageCubit,
+    act: (cubit) => cubit.updateCity(
+      id: '123',
+      cityName: 'Test City',
+      temperature: '25',
+      description: 'Sunny',
+    ),
+    expect: () => [
+      HomePageErrorState(Exception()),
+    ],
+  );
+
+// Test for error in createCity function
+  blocTest<HomePageCubit, HomePageState>(
+    'emits [ HomePageErrorState] when createCity fails',
+    setUp: () {
+      when(() => mockHomeRepository.createCity(
+            id: any(named: 'id'),
+            cityName: any(named: 'cityName'),
+            temperature: any(named: 'temperature'),
+            description: any(named: 'description'),
+          )).thenThrow(Exception());
+    },
+    build: () => homePageCubit,
+    act: (cubit) => cubit.createCity(
+      id: '123',
+      cityName: 'New City',
+      temperature: '30',
+      description: 'Clear Sky',
+    ),
+    expect: () => [
+      HomePageErrorState(Exception()),
+    ],
+  );
 }

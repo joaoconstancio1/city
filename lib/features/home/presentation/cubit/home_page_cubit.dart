@@ -16,8 +16,8 @@ class HomePageCubit extends Cubit<HomePageState> {
       final result = await repository.get();
       result.fold((l) => emit(HomePageErrorState(l)),
           (r) => emit(HomePageSuccessState(cities: r)));
-    } catch (error, stackTrace) {
-      onError(error, stackTrace);
+    } catch (error) {
+      emit(HomePageErrorState(Exception(error)));
     }
   }
 
@@ -27,8 +27,8 @@ class HomePageCubit extends Cubit<HomePageState> {
     try {
       await repository.addCity();
       await init();
-    } catch (error, stackTrace) {
-      onError(error, stackTrace);
+    } catch (error) {
+      emit(HomePageErrorState(Exception(error)));
     }
   }
 
@@ -38,8 +38,8 @@ class HomePageCubit extends Cubit<HomePageState> {
     try {
       await repository.deleteCity(id);
       await init();
-    } catch (error, stackTrace) {
-      onError(error, stackTrace);
+    } catch (error) {
+      emit(HomePageErrorState(Exception(error)));
     }
   }
 
@@ -55,8 +55,8 @@ class HomePageCubit extends Cubit<HomePageState> {
           cityName: cityName,
           temperature: temperature,
           description: description);
-    } catch (error, stackTrace) {
-      onError(error, stackTrace);
+    } catch (error) {
+      emit(HomePageErrorState(Exception(error)));
     }
   }
 
@@ -72,8 +72,8 @@ class HomePageCubit extends Cubit<HomePageState> {
           cityName: cityName,
           temperature: temperature,
           description: description);
-    } catch (error, stackTrace) {
-      onError(error, stackTrace);
+    } catch (error) {
+      emit(HomePageErrorState(Exception(error)));
     }
   }
 }
