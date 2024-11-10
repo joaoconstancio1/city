@@ -65,12 +65,14 @@ class _EditOrCreatePageState extends State<EditOrCreatePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _buildTextField(
+                key: Key('cityNameField'),
                 controller: _cityController,
                 label: 'City Name',
                 icon: Icons.location_city,
               ),
               const SizedBox(height: 16),
               _buildTextField(
+                key: Key('temperatureField'),
                 controller: _temperatureController,
                 label: 'Temperature',
                 icon: Icons.thermostat,
@@ -78,6 +80,7 @@ class _EditOrCreatePageState extends State<EditOrCreatePage> {
               ),
               const SizedBox(height: 16),
               _buildTextField(
+                key: Key('descriptionField'),
                 controller: _descriptionController,
                 label: 'Description',
                 icon: Icons.description,
@@ -164,6 +167,7 @@ class _EditOrCreatePageState extends State<EditOrCreatePage> {
   }
 
   Widget _buildTextField({
+    Key? key,
     required TextEditingController controller,
     required String label,
     required IconData icon,
@@ -171,6 +175,7 @@ class _EditOrCreatePageState extends State<EditOrCreatePage> {
     int maxLines = 1,
   }) {
     return TextFormField(
+      key: key,
       controller: controller,
       keyboardType: keyboardType,
       maxLines: maxLines,

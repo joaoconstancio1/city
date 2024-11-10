@@ -1,7 +1,6 @@
 /// *** GENERATED FILE - ANY CHANGES WOULD BE OBSOLETE ON NEXT GENERATION *** ///\n
 /// Helper to test coverage for all project files
 library;
-
 // ignore_for_file: unused_import
 import 'package:city/app_module.dart';
 import 'package:city/app_widget.dart';
@@ -25,5 +24,4 @@ import 'package:city/flavors.dart';
 import 'package:city/main.dart';
 import 'package:city/main_dev.dart';
 import 'package:city/main_prod.dart';
-
 void main() {}
