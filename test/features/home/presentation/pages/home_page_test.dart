@@ -4,6 +4,7 @@ import 'package:city/core/core_extensions.dart';
 import 'package:city/core/custom_error_widget.dart';
 import 'package:city/core/custom_loading_widget.dart';
 import 'package:city/features/home/domain/entities/city_entity.dart';
+import 'package:city/features/home/home_module.dart';
 import 'package:city/features/home/presentation/components/weather_card.dart';
 import 'package:city/features/home/presentation/cubit/home_page_cubit.dart';
 import 'package:city/features/home/presentation/cubit/home_page_states.dart';
@@ -52,6 +53,24 @@ void main() {
       ),
     );
   }
+
+  testWidgets('Deve exibir HomePageView corretamente',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      ModularApp(
+        module: HomeModule(),
+        child: BlocProvider<HomePageCubit>(
+          create: (_) => mockHomePageCubit,
+          child: MaterialApp(
+            home: const HomePage(),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.byType(HomePageView), findsOneWidget);
+  });
 
   testWidgets('renders SizedBox as fallback', (WidgetTester tester) async {
     when(() => mockHomePageCubit.state).thenReturn(HomePageInitialState());
@@ -188,5 +207,25 @@ void main() {
 
     expect(
         find.text('Are you sure you want to delete this city?'), findsNothing);
+  });
+
+  testWidgets('calls init when returning from edit page with arguments',
+      (WidgetTester tester) async {
+    when(() => navigator.pushNamed(any(), arguments: any(named: 'arguments')))
+        .thenAnswer((_) async => null);
+    when(() => mockHomePageCubit.init()).thenAnswer((_) async {});
+
+    await tester.pumpWidget(createTestableWidget());
+
+    await tester.tap(find.descendant(
+      of: find.widgetWithText(WeatherCard, 'City 1'),
+      matching: find.byIcon(Icons.edit),
+    ));
+    await tester.pumpAndSettle();
+
+    verify(() =>
+            navigator.pushNamed('/edit', arguments: any(named: 'arguments')))
+        .called(1);
+    verify(() => mockHomePageCubit.init()).called(1);
   });
 }
