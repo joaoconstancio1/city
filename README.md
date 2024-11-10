@@ -136,6 +136,10 @@ To check the code coverage for this project, follow the steps below:
 
 This will execute the script located in the `tools` folder, generating a detailed coverage report that shows the percentage of your code covered by tests. You can use this report to identify which parts of your code are well-tested and which may require additional tests.
 
+
+**Note for Windows Users:**
+If you are on a Windows system, it is strongly recommended to use Git Bash to run this script. This ensures compatibility and prevents potential issues with script execution.
+
 ---
 
 ### Final Considerations
