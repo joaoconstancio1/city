@@ -103,7 +103,9 @@ class _HomePageViewState extends State<HomePageView> {
             );
           }
 
-          return SizedBox();
+          return SizedBox(
+            key: Key('sizedBox'),
+          );
         },
       ),
     );
